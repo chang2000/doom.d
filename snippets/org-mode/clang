@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: clang
+# key: cl
+# --
+#+begin_src c
+$1
+#+end_src
+
