@@ -1,0 +1,11 @@
+#+TITLE: My Private Doom Emacs Configuration
+#+DATE:    November 25, 2019
+#+SINCE:   {replace with next tagged release version}
+#+STARTUP: inlineimages
+
+* Table of Contents :TOC_3:noexport:
+- [[#description][Description]]
+
+* Description
+This repo is adapted with doom-emacs, a emacs configuration, similar to
+spacemac.
