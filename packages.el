@@ -8,3 +8,4 @@
 (package! wakatime-mode)
 (package! company-tabnine)
 (package! spacemacs-theme)
+(package! ox-hugo)
