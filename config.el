@@ -22,7 +22,7 @@
   ;; english font
   (if (display-graphic-p)
       (progn
-        (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Iosevka Slab" 21)) ;; 11 13 17 19 23
+        (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Iosevka Slab" 19)) ;; 11 13 17 19 23
         ;; chinese font
         (dolist (charset '(kana han symbol cjk-misc bopomofo))
           (set-fontset-font (frame-parameter nil 'font)
@@ -42,7 +42,6 @@
 (add-to-list 'load-path "~/.doom.d/elisp")
 
 ;; My prefered themes
-;; ;; disable all the theme before loading a new theme
 (defun disable-all-themes ()
   (dolist (i custom-enabled-themes)
     (disable-theme i)))
@@ -68,34 +67,21 @@
 (setq auto-save-silent t)   ; quietly save
 
 ;; Tabnine
-;; (use-package! company-tabnine
-;;     :after company
-;;     :config
-;;     (add-to-list 'company-backends #'company-tabnine)
-;;     (set-company-backend! 'prog-mode
-;;       'company-tabnine 'company-capf 'company-yasnippet)
-;;     (setq company-idle-delay 0)
-;;     (setq company-show-numbers t))
+(use-package! company-tabnine
+    :after company
+    :config
+    (add-to-list 'company-backends #'company-tabnine)
+    (set-company-backend! 'prog-mode
+      'company-tabnine 'company-capf 'company-yasnippet)
+    (setq company-idle-delay 0)
+    (setq company-show-numbers t))
 
-(use-package! ox-hugo
-    :after ox
-    )
+(use-package! ox-hugo :after ox)
 
 ;; Awesome Tab
 (require 'awesome-tab)
 (awesome-tab-mode t)
 (setq awesome-tab-style 'bar)
-;; (global-set-key (kbd "s-1") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-2") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-3") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-4") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-5") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-6") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-7") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-8") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-9") 'awesome-tab-select-visible-tab)
-;; (global-set-key (kbd "s-0") 'awesome-tab-select-visible-tab)
-
 (global-set-key (kbd "s-h") 'awesome-tab-backward-tab)
 (global-set-key (kbd "s-l") 'awesome-tab-forward-tab)
 (global-set-key (kbd "s-j") 'awesome-tab-forward-group)
