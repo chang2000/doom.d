@@ -7,8 +7,6 @@
 (global-set-key (kbd "s-c") #'clipboard-kill-ring-save)
 (global-set-key (kbd "s-v") #'clipboard-yank)
 (global-set-key (kbd "s-w") #'delete-frame)
-(global-set-key (kbd "s-t") #'split-window-horizontally)
-(global-set-key (kbd "s-T") #'split-window-vertically)
 (global-set-key (kbd "s-o") #'ace-window)
 (global-set-key (kbd "s-x") #'execute-extended-command)
 (global-set-key (kbd "s-n") #'make-frame-command)
@@ -22,8 +20,10 @@
   ;; english font
   (if (display-graphic-p)
       (progn
+        ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Hack" 19)) ;; 11 13 17 19 23
         (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Iosevka Slab" 19)) ;; 11 13 17 19 23
-        ;; chinese font
+        ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Iosevka Slab" 19)) ;; 11 13 17 19 23
+        ;; ;; chinese font
         (dolist (charset '(kana han symbol cjk-misc bopomofo))
           (set-fontset-font (frame-parameter nil 'font)
                             charset
@@ -38,6 +38,8 @@
 (if (and (fboundp 'daemonp) (daemonp))
     (add-hook 'after-make-frame-functions #'+my|init-font)
   (+my/better-font))
+
+
 ;; Private load-path
 (add-to-list 'load-path "~/.doom.d/elisp")
 
@@ -45,14 +47,22 @@
 (defun disable-all-themes ()
   (dolist (i custom-enabled-themes)
     (disable-theme i)))
-
 (defadvice load-theme (before disable-themes-first activate)
   (disable-all-themes))
 
-(load-theme 'spacemacs-dark)
+;; (load-theme 'spacemacs-dark)
+(load-theme 'doom-wilmersdorf)
 
-
+;; Some personaliized Evil settings
+;;
 ;; Vim style buffer management
+;; Reserve the operate style of original Emacs
+(with-eval-after-load 'evil-maps
+(define-key evil-insert-state-map (kbd "C-n") nil)
+(define-key evil-insert-state-map (kbd "C-f") nil)
+(define-key evil-insert-state-map (kbd "C-b") nil)
+(define-key evil-insert-state-map (kbd "C-p") nil))
+
 (evil-set-initial-state 'term-mode 'emacs)
 (defun alex/save-and-kill-this-buffer ()
     (interactive)
@@ -77,6 +87,7 @@
     (setq company-show-numbers t))
 
 (use-package! ox-hugo :after ox)
+
 
 ;; Awesome Tab
 (require 'awesome-tab)
