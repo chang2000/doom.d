@@ -19,7 +19,8 @@
   ;; english font
   (if (display-graphic-p)
       (progn
-        (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Iosevka Slab" 19)) ;; 11 13 17 19 23
+        ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Iosevka Slab" 19)) ;; 11 13 17 19 23
+        (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Source Code Pro" 19)) ;; 11 13 17 19 23
         (dolist (charset '(kana han symbol cjk-misc bopomofo))
           (set-fontset-font (frame-parameter nil 'font)
                             charset
@@ -35,6 +36,11 @@
     (add-hook 'after-make-frame-functions #'+my|init-font)
   (+my/better-font))
 
+;; Set line space for better readability
+(setq-default line-spacing 3)
+
+;; No line number for the better performance
+(setq display-line-numbers-mode nil)
 
 ;; Private load-path
 (add-to-list 'load-path "~/.doom.d/elisp")
@@ -71,16 +77,16 @@
 (require 'auto-save)
 (auto-save-enable)
 (setq auto-save-silent t)
-;; Tabnine
-;; (use-package! company-tabnine
-;;     :after company
-;;     :config
-;;     (add-to-list 'company-backends #'company-tabnine)
-;;     (set-company-backend! 'prog-mode
-;;       'company-tabnine 'company-capf 'company-yasnippet))
-(setq company-idle-delay 0)
-;; (setq company-show-numbers t)
 
+;; Tabnine
+(use-package! company-tabnine
+    :after company
+    :config
+    (add-to-list 'company-backends #'company-tabnine)
+    (set-company-backend! 'company-tabnine))
+(setq company-idle-delay 0)
+(setq company-show-numbers t)
+(global-company-mode)
 ;; Flycheck
 
 ;; Blog Export
