@@ -19,12 +19,12 @@
   ;; english font
   (if (display-graphic-p)
       (progn
-        ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Iosevka Slab" 19)) ;; 11 13 17 19 23
-        (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Source Code Pro" 19)) ;; 11 13 17 19 23
+        (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Iosevka Slab" 19)) ;; 11 13 17 19 23
+        ;; (set-face-attribute 'default nil :font (format "%s:pixelsize=%d" "Source Code Pro" 19)) ;; 11 13 17 19 23
         (dolist (charset '(kana han symbol cjk-misc bopomofo))
           (set-fontset-font (frame-parameter nil 'font)
                             charset
-                            (font-spec :family "Songti SC")))) ;; 14 16 20 22 28
+                            (font-spec :family "STFangsong")))) ;; 14 16 20 22 28
     ))
 
 (defun +my|init-font(frame)
@@ -35,6 +35,9 @@
 (if (and (fboundp 'daemonp) (daemonp))
     (add-hook 'after-make-frame-functions #'+my|init-font)
   (+my/better-font))
+
+;; Add custom theme
+(add-to-list 'custom-theme-load-path "~/.doom.d/themes/")
 
 ;; Set line space for better readability
 (setq-default line-spacing 3)
@@ -52,8 +55,8 @@
 (defadvice load-theme (before disable-themes-first activate)
   (disable-all-themes))
 
+;(load-theme 'lazycat)
 (load-theme 'spacemacs-dark)
-;; (load-theme 'doom-wilmersdorf)
 
 ;; Some personaliized Evil settings
 ;;
@@ -74,20 +77,11 @@
 (evil-ex-define-cmd "wq" 'alex/save-and-kill-this-buffer)
 
 ;; Auto save
-(require 'auto-save)
-(auto-save-enable)
-(setq auto-save-silent t)
-
-;; Tabnine
-(use-package! company-tabnine
-    :after company
-    :config
-    (add-to-list 'company-backends #'company-tabnine)
-    (set-company-backend! 'company-tabnine))
-(setq company-idle-delay 0)
-(setq company-show-numbers t)
-(global-company-mode)
-;; Flycheck
+(use-package! auto-save
+  :config
+  (auto-save-enable)
+  (setq auto-save-silent t)
+)
 
 ;; Blog Export
 (use-package! ox-hugo :after ox)
@@ -97,13 +91,33 @@
       flycheck-python-pycompile-executable "python3")
 
 ;; Awesome Tab
-(require 'awesome-tab)
-(awesome-tab-mode t)
-(setq awesome-tab-style 'bar)
-(global-set-key (kbd "s-h") 'awesome-tab-backward-tab)
-(global-set-key (kbd "s-l") 'awesome-tab-forward-tab)
-(global-set-key (kbd "s-j") 'awesome-tab-forward-group)
-(global-set-key (kbd "s-k") 'awesome-tab-backward-group)
+(use-package! awesome-tab
+  :config
+  (awesome-tab-mode t)
+  (setq awesome-tab-style 'wave)
+  (global-set-key (kbd "s-h") 'awesome-tab-backward-tab)
+  (global-set-key (kbd "s-l") 'awesome-tab-forward-tab)
+  (global-set-key (kbd "s-j") 'awesome-tab-forward-group)
+  (global-set-key (kbd "s-k") 'awesome-tab-backward-group)
+)
 
 ;; Wakatime
 (global-wakatime-mode)
+
+;; Chinese Input Method 
+
+(setq load-path (cons (file-truename "~/.doom.d/rime") load-path))
+
+(use-package! posframe)
+(require 'liberime)
+(use-package! pyim
+  :ensure nil
+  :demand t
+  :config
+  (setq default-input-method "pyim")
+  (setq pyim-page-tooltip 'posframe)
+  (setq pyim-page-length 9)
+)
+(liberime-start "/Library/Input Methods/Squirrel.app/Contents/SharedSupport" (file-truename "~/.emacs.d/pyim/rime/"))
+(liberime-select-schema "luna_pinyin_simp")
+(setq pyim-default-scheme 'rime-quanpin)
