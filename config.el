@@ -6,13 +6,13 @@
       user-mail-address "wangtcalex@gmail.com")
 
 ;; (setq doom-font (font-spec :family "Source Code Variable" :size 18))
-(setq doom-font (font-spec :family "Fira Code" :size 16))
+;; (setq doom-font (font-spec :family "Fira Code" :size 16))
+(setq doom-font (font-spec :family "SF Mono" :size 16))
 (dolist (charset '(kana han symbol cjk-misc bopomofo))
   (set-fontset-font (frame-parameter nil 'font)
                     charset (font-spec :family "PingFang SC"
                                        :size 16)))
 (setq-default line-spacing 2)
-
 
 
 (defun alex/disable-bold-and-fringe-bg-face-globally ()
@@ -28,8 +28,8 @@
 
 
 ;;(setq doom-theme 'doom-one)
-;; (setq doom-theme 'doom-acario-dark)
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-acario-light)
+;; (setq doom-theme 'doom-one)
 
 (setq org-directory "~/org/")
 
@@ -76,24 +76,26 @@
         "xelatex -interaction nonstopmode -output-directory %o %f"
         "xelatex -interaction nonstopmode -output-directory %o %f"))
 
+;; Disable line numbers
+(setq display-line-numbers-type nil)
+
+;(use-package! tron-legacy-theme
+  ;:config
+  ;(setq tron-legacy-theme-vivid-cursor t)
+  ;(load-theme 'tron-legacy t))
+
+;(use-package! org-bullets
+  ;:config
+  ;(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+  ;)
+
+;(use-package! auto-save
+  ;:config
+  ;(auto-save-enable)
+  ;(setq auto-save-silent t)
+  ;(setq auto-save-delete-trailing-whitespace nil))
+
 ;; (use-package! telega
 ;;   :load-path  "~/telega.el"
 ;;   :commands (telega)
 ;;   :defer t)
-;;
-
-(use-package! tron-legacy-theme
-  :config
-  (setq tron-legacy-theme-vivid-cursor t)
-  (load-theme 'tron-legacy t))
-
-(use-package! org-bullets
-  :config
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-  )
-
-(use-package! auto-save
-  :config
-  (auto-save-enable)
-  (setq auto-save-silent t)
-  (setq auto-save-delete-trailing-whitespace nil))

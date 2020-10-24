@@ -49,5 +49,6 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-(package! tron-legacy-theme)
-(package! org-bullets)
+;(package! tron-legacy-theme)
+;(package! org-bullets)
+;(package! rainbow-identifiers)
